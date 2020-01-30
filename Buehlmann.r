@@ -59,3 +59,18 @@ names(coef(gam2)) #selected base-learners at mstop(cvm)
 #To see that nothing got lost we now increase mstop to 1000:
 gam2[1000, return = FALSE] #iter 1-100 not computed
 names(coef(gam2))
+
+#Quantile Reg=>stopping point needs to be bigger
+glm3<-glmboost(DEXfat~hipcirc+kneebreadth+anthro3a,data=bodyfat,
+    family=QuantReg(tau=0.5),control=boost_control(mstop=500))
+coef(glm3,off2int=TRUE)
+
+#BOOSTING ALGORITHMS: REGULARIZATION,
+#PREDICTION AND MODEL FITTING
+#Paper demonstration
+
+
+
+
+
+
