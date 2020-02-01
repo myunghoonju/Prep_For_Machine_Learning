@@ -69,8 +69,20 @@ coef(glm3,off2int=TRUE)
 #PREDICTION AND MODEL FITTING
 #Paper demonstration
 
+bf_lm<-lm(DEXfat~hipcirc+kneebreadth+anthro3a,data=bodyfat)
+coef(bf_lm)
 
 
+bf_glm<-glmboost(DEXfat~.,data=bodyfat,
+    control=boost_control(center=TRUE))
 
+coef(bf_glm)
 
+mstop(aic<-AIC(bf_glm))
+coef(bf_glm[mstop(aic)])
 
+bf_gam<-gamboost(DEXfat~.,data=bodyfat)
+mstop(aic<-AIC(bf_gam))
+
+bf_black<-blackboost(DEXfat~.,data=bodyfat,
+    control=boost_control(mstop=500))
